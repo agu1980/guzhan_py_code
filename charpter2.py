@@ -12,7 +12,7 @@ obj3= ['c',3]
 obj4= ['d',6]
 
 test = [obj2,obj1,obj4,obj3]
-test.sort(test,key=lambda test:test[1])
+test2 = [(i,j) for i,j in enumerate(test)]
 #resutl = test[2][0]
 
 def get_counts(obj,key):
@@ -33,14 +33,13 @@ def get_counts2(obj,key):
 
 
 def order(obj, direction, return_number):
-    count_pairs = [['adfa',123],['adfa11',123]]
-    obj1 = [['a', 2], ['b', 2]]
-    if direction == 'ASC':
-        for x in obj.iteritems():
-            y = list(x)
-            count_pairs.append(y)
-    count_pairs.sort()
-    return count_pairs[-return_number:]
+    return map(obj.get,obj.keys().sort())
+    # if direction == 'ASC':
+    #     for x in obj.iteritems():
+    #         y = list(x)
+    #         count_pairs.append(y)
+    # count_pairs.sort()
+    # return count_pairs[-return_number:]
 
 
 path = 'C:\Users\guzhan\Documents\GitHub\pydata-book\ch02\usagov_bitly_data2012-03-16-1331923249.txt'
