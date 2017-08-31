@@ -1,20 +1,9 @@
 import json
 from collections import defaultdict, Counter
+from pandas import DataFrame, Series
+import pandas as pd; import numpy as np
 
 
-# obj1= {1:'a'}
-# obj2= {2:'b'}
-# obj3= {3:'c'}
-# obj4= {4:'d'}
-
-obj1= ['a',8]
-obj2= ['b',42]
-obj3= ['c',3]
-obj4= ['d',6]
-
-test = [obj2,obj1,obj4,obj3]
-test2 = [(i,j) for i,j in enumerate(test)]
-#resutl = test[2][0]
 
 def get_counts(obj,key):
     counts = {}
@@ -34,26 +23,33 @@ def get_counts2(obj,key):
 
 
 def order(obj, direction, return_number):
-    sorted_list = [(i,j) for j,i in obj.items()]
+    sorted_list = [(i,j) for j,i in obj.items()]#DSU methond
     sorted_list.sort()
     return sorted_list[-10:]
 
 
-path = '/Users/guzhan/guzhan_py_code/ch02/usagov_bitly_data2012-03-16-1331923249.txt'
+path = 'ch02/usagov_bitly_data2012-03-16-1331923249.txt'
 lines = open(path).readlines()
 records = [json.loads(line) for line in lines]
-time_zones = [element['tz'] for element in records if 'tz' in element]
+time_zones = [element['tz'] for element in records if 'tz' in element]#DSU methond
 for rec in records:
     if 'tz' in rec:
         pass
     else:
         records.remove(rec)
 
-dict_count = get_counts(records,'tz')
+frame = DataFrame(lines)
+tz_count = frame['tz'][:10].value_counts()
+#clean_tz = frame['tz'].fillna('missing')
+#clean_tz[clean_tz == ''] = 'Unknow'
+tz_counts = tz_count.value_countes()
+tz_counts.plot(kind='barh', rot=0)
+
+#dict_count = get_counts(records,'tz')
 #dict_count2 = get_counts2(records,'tz')
 #top_count = order(dict_count,'ASC', 10)
-ttt = Counter(time_zones)
-ppp = ttt.most_common(10)
+counter_tz = Counter(time_zones)
+ordered_tz = counter_tz.most_common(10)
 
-for i in ppp:
-    print '{',i[0],'=>',i[1],'}'
+for tz in ordered_tz:
+    print '{',tz[0],'=>',tz[1],'}'
