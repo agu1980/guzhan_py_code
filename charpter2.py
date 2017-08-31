@@ -3,7 +3,14 @@ from collections import defaultdict, Counter
 from pandas import DataFrame, Series
 import pandas as pd; import numpy as np
 
+s = Series(data=[1,3,5,7],index = ['a','b','x','y'])
+tt = s.value_counts()
 
+data = {'state':['Ohino','Ohino','Ohino','Nevada','Nevada'],
+        'year':[2000,2001,2002,2001,2002],
+        'pop':[1.5,1.7,3.6,2.4,2.9]}
+
+df = DataFrame(data)
 
 def get_counts(obj,key):
     counts = {}
@@ -38,18 +45,19 @@ for rec in records:
     else:
         records.remove(rec)
 
-frame = DataFrame(lines)
-tz_count = frame['tz'][:10].value_counts()
-#clean_tz = frame['tz'].fillna('missing')
-#clean_tz[clean_tz == ''] = 'Unknow'
-tz_counts = tz_count.value_countes()
-tz_counts.plot(kind='barh', rot=0)
+frame = DataFrame(records)
 
-#dict_count = get_counts(records,'tz')
-#dict_count2 = get_counts2(records,'tz')
-#top_count = order(dict_count,'ASC', 10)
-counter_tz = Counter(time_zones)
-ordered_tz = counter_tz.most_common(10)
+#tz_count = frame['tz'][:10].value_counts()
+clean_tz = frame['tz'][:10].fillna('missing')
+clean_tz[clean_tz == ''] = 'Unknow'
+tz_count = clean_tz.value_counts()
+tz_count.plot(kind='barh', rot=0)
 
-for tz in ordered_tz:
-    print '{',tz[0],'=>',tz[1],'}'
+# dict_count = get_counts(records,'tz')
+# dict_count2 = get_counts2(records,'tz')
+# top_count = order(dict_count,'ASC', 10)
+# counter_tz = Counter(time_zones)
+# ordered_tz = counter_tz.most_common(10)
+
+# for tz in ordered_tz:
+#     print '{',tz[0],'=>',tz[1],'}'
